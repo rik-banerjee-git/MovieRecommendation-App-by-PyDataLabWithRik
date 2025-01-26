@@ -22,11 +22,21 @@ movie_data = pd.DataFrame.from_dict(loaded_data)
 # with open("similarity_score_precalculated.pkl", "rb") as file:
 #     similarity_score_precalculated = pickle.load(file)
 
-url = f'https://drive.google.com/uc?export=download&id=1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'
-#url='https://drive.google.com/file/d/1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs/view?usp=sharing'
-gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
-with open('similarity_score_precalculated.pkl', 'rb') as f:
-    similarity_score_precalculated = pickle.load(f)
+# url = f'https://drive.google.com/uc?export=download&id=1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'
+# gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
+# with open('similarity_score_precalculated.pkl', 'rb') as f:
+#     similarity_score_precalculated = pickle.load(f)
+
+@st.cache_data
+def download_and_load_model():
+    file_id = 'FILE_ID'  # Replace with your actual file ID
+    url = f'https://drive.google.com/uc?export=download&id=1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'
+    gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
+    with open('similarity_score_precalculated.pkl', 'rb') as f:
+        similarity_score_precalculated = pickle.load(f)
+    return similarity_score_precalculated
+
+similarity_score_precalculated=download_and_load_model()
 
 # TMDB API Call Function
 def tmdbApiCall(movieId):
