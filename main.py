@@ -90,7 +90,7 @@ if st.sidebar.button("Get Recommendations"):
 st.title("Content-Based Movie Recommendations 🎥")
 st.markdown(
     """
-    **Welcome to the Movie Recommendation System!**
+    **Welcome to the Movie Recommendation System! by Rik Banerjee**
     - Select your favorite movie from the sidebar.
     - Adjust the slider for the number of recommendations.
     - Explore personalized movie suggestions with detailed info!
