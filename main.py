@@ -12,31 +12,25 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 # Load Movie Data
 with open("movie_data.pkl", "rb") as file:
     loaded_data = pickle.load(file)
 movie_data = pd.DataFrame.from_dict(loaded_data)
 
-# Load Precomputed Similarity Scores
-# with open("similarity_score_precalculated.pkl", "rb") as file:
-#     similarity_score_precalculated = pickle.load(file)
 
-# url = f'https://drive.google.com/uc?export=download&id=1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'
-# gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
-# with open('similarity_score_precalculated.pkl', 'rb') as f:
-#     similarity_score_precalculated = pickle.load(f)
+with st.spinner('Loading model... Please wait.'):
+    @st.cache_data
+    def calculating_cosine_similarity():
+        file_id = '1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'  # Replace with your actual file ID
+        url = f'https://drive.google.com/uc?export=download&id={file_id}'
+        gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
+        with open('similarity_score_precalculated.pkl', 'rb') as f:
+            similarity_score_precalculated = pickle.load(f) 
+        return similarity_score_precalculated
 
-@st.cache_data
-def download_and_load_model():
-    file_id = 'FILE_ID'  # Replace with your actual file ID
-    url = f'https://drive.google.com/uc?export=download&id=1zgfxuB_gau6HmLFD8N2lp5hlnHLgeJhs'
-    gdown.download(url, 'similarity_score_precalculated.pkl', quiet=False)
-    with open('similarity_score_precalculated.pkl', 'rb') as f:
-        similarity_score_precalculated = pickle.load(f)
-    return similarity_score_precalculated
-
-similarity_score_precalculated=download_and_load_model()
+# Step 2: Load the model using the cache
+with st.spinner('Loading model... Please wait.'):
+    similarity_score_precalculated = calculating_cosine_similarity()
 
 # TMDB API Call Function
 def tmdbApiCall(movieId):
