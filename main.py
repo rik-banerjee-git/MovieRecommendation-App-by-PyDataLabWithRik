@@ -7,7 +7,7 @@ import gdown
 
 # Streamlit Page Configuration
 st.set_page_config(
-    page_title="Movie Recommendation System 🎥",
+    page_title="Movie Recommendation System 🎥 By Rik Banerjee",
     page_icon="🎦",
     layout="wide",
     initial_sidebar_state="expanded",
